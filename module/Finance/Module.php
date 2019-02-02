@@ -4,6 +4,7 @@ namespace Finance;
 
 use Krystal\Application\Module\AbstractModule;
 use Finance\Service\SpendingService;
+use Finance\Service\CalendarService;
 
 final class Module extends AbstractModule
 {
@@ -25,7 +26,8 @@ final class Module extends AbstractModule
     public function getServiceProviders() : array
     {
         return [
-            'spendingService' => new SpendingService($this->createMapper('\Finance\Storage\MySQL\SpendingMapper'))
+            'spendingService' => new SpendingService($this->createMapper('\Finance\Storage\MySQL\SpendingMapper')),
+            'calendarService' => new CalendarService($this->createMapper('\Finance\Storage\MySQL\CalendarMapper'))
         ];
     }
 }
