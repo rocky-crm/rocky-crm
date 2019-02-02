@@ -5,6 +5,7 @@ namespace Finance\Service;
 use Finance\Storage\MySQL\SpendingMapper;
 use Krystal\Application\Model\AbstractService;
 use Krystal\Stdlib\VirtualEntity;
+use Krystal\Stdlib\ArrayUtils;
 
 final class SpendingService extends AbstractService
 {
@@ -47,6 +48,16 @@ final class SpendingService extends AbstractService
     public function fetchById(int $id)
     {
         return $this->prepareResult($this->spendingMapper->findByPk($id));
+    }
+
+    /**
+     * Fetch all spending as a list
+     * 
+     * @return arrau
+     */
+    public function fetchList()
+    {
+        return ArrayUtils::arrayList($this->spendingMapper->fetchAll(), 'id', 'name');
     }
 
     /**
