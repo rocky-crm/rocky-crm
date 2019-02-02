@@ -29,11 +29,11 @@ final class Calendar extends AbstractCrmController
      */
     private function createGrid(VirtualEntity $entity) : string
     {
-        return $this->view->render('calendar', array(
+        return $this->view->render('calendar', [
             'calendar' => $this->getModuleService('calendarService')->fetchAll(),
             'spendings' => $this->getModuleService('spendingService')->fetchList(),
             'entity' => $entity
-        ));
+        ]);
     }
 
     /**
