@@ -10,6 +10,20 @@ defined('KRYSTAL') or die;
 
 <h2 class="page-header"><?php $this->show('Payment calendar'); ?> <small>(<?= count($calendar); ?>)</small></h2>
 
+<form action="<?= $this->url('Finance:Calendar@exploreAction', null); ?>">
+    <div class="row">
+        <div class="col-lg-5">
+            <?= Element::date('date', $date, ['class' => 'form-control']); ?>
+        </div>
+
+        <div class="col-lg-2">
+            <?= Element::submit('Filter', ['class' => 'btn btn-primary']); ?>
+        </div>
+    </div>
+</form>
+
+<br />
+
 <div class="row">
     <div class="col-lg-6">
         <?= Grid::render($calendar, [

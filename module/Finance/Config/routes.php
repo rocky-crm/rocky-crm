@@ -23,6 +23,10 @@ return [
         'controller' => 'Calendar@indexAction'
     ],
 
+    '/finance/calendar/explore/(:var)' => [
+        'controller' => 'Calendar@exploreAction'
+    ],
+
     '/finance/calendar/save' => [
         'controller' => 'Calendar@saveAction'
     ],

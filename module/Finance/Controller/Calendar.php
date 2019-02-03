@@ -11,26 +11,46 @@ final class Calendar extends AbstractCrmController
     /**
      * Renders all items
      * 
+     * @param string $date
      * @return string
      */
-    public function indexAction() : string
+    public function indexAction($date = null) : string
     {
-        $entity = new VirtualEntity;
-        $entity->setDate(TimeHelper::getNow(false));
+        if ($date === null) {
+            $date = TimeHelper::getNow(false);
+        }
 
-        return $this->createGrid($entity);
+        $entity = new VirtualEntity;
+        $entity->setDate($date);
+
+        return $this->createGrid($entity, $date);
+    }
+
+    /**
+     * Explore by date
+     * 
+     * @param string $date
+     * @return string
+     */
+    public function exploreAction() : string
+    {
+        $date = $this->request->getQuery('date');
+
+        return $this->indexAction($date);
     }
 
     /**
      * Creates a grid
      * 
      * @param \Krystal\Stdlib\VirtualEntity $entity
+     * @param mixed $date Optional date override. Defaults to today
      * @return string
      */
-    private function createGrid(VirtualEntity $entity) : string
+    private function createGrid(VirtualEntity $entity, $date = null) : string
     {
         return $this->view->render('calendar', [
-            'calendar' => $this->getModuleService('calendarService')->fetchAll(),
+            'date' => $date,
+            'calendar' => $this->getModuleService('calendarService')->fetchAll($date),
             'spendings' => $this->getModuleService('spendingService')->fetchList(),
             'entity' => $entity
         ]);
