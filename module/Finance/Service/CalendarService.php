@@ -56,8 +56,9 @@ final class CalendarService extends AbstractService
         $rows = $this->calendarMapper->fetchAll(null);
         $partition = ArrayUtils::arrayPartition($rows, 'date', false);
 
-        // Total sum
+        // Counters
         $total = 0;
+        $spendings = 0;
 
         foreach ($partition as $date => $details) {
             $amounts = array_column($details, 'amount');
@@ -65,6 +66,7 @@ final class CalendarService extends AbstractService
 
             // Increment total counter
             $total += $sum;
+            $spendings += count($details);
 
             $output[] = [
                 'date' => $date,
@@ -75,6 +77,7 @@ final class CalendarService extends AbstractService
 
         return [
             'total' => $total,
+            'spendings' => $spendings,
             'data' => $output
         ];
     }
