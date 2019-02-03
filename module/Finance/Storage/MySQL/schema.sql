@@ -13,3 +13,11 @@ CREATE TABLE rocky_calendar (
 
     FOREIGN KEY (spending_id) REFERENCES rocky_spending(id) ON DELETE CASCADE
 );
+
+CREATE TABLE rocky_income (
+    `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `from` varchar(255) NOT NULL,
+    `date` DATE NOT NULL COMMENT 'Date of this income',
+    `amount` FLOAT NOT NULL,
+    `comment` TEXT NOT NULL
+);
