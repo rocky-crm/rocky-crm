@@ -32,8 +32,9 @@
     </tbody>
     
     <tfoot>
-        <tr>
-            <td>Total: <?= number_format($data['total']); ?></td>
+        <tr class="info">
+            <td>Total spends: <?= number_format($data['spendings']); ?></td>
+            <td>Total sum: <?= number_format($data['total']); ?></td>
         </tr>
     </tfoot>
 </table>
