@@ -19,6 +19,10 @@ return [
     ],
 
     // Calendar
+    '/finance/pivot' => [
+        'controller' => 'Calendar@pivotAction'
+    ],
+    
     '/finance/calendar' => [
         'controller' => 'Calendar@indexAction'
     ],

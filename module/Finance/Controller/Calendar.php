@@ -9,6 +9,18 @@ use Site\Controller\AbstractCrmController;
 final class Calendar extends AbstractCrmController
 {
     /**
+     * Renders pivot table
+     * 
+     * @return string
+     */
+    public function pivotAction() : string
+    {
+        return $this->view->render('pivot', [
+            'data' => $this->getModuleService('calendarService')->getPivotData()
+        ]);
+    }
+
+    /**
      * Renders all items
      * 
      * @param string $date
