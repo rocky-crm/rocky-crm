@@ -33,5 +33,22 @@ return [
 
     '/finance/calendar/delete/(:var)' => [
         'controller' => 'Calendar@deleteAction'
+    ],
+
+    // Income
+    '/finance/income' => [
+        'controller' => 'Income@indexAction'
+    ],
+
+    '/finance/income/save' => [
+        'controller' => 'Income@saveAction'
+    ],
+
+    '/finance/income/edit/(:var)' => [
+        'controller' => 'Income@editAction'
+    ],
+
+    '/finance/income/delete/(:var)' => [
+        'controller' => 'Income@deleteAction'
     ]
 ];
