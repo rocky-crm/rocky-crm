@@ -180,7 +180,7 @@ $(function(){
     });
 
     // For forms that send data
-    $("button[type='submit']").click(function(event){
+    $("[data-button='submit']").click(function(event){
         event.preventDefault();
 
         // Find its parent form
@@ -189,11 +189,13 @@ $(function(){
         // Attach the singular handler and cancel any previous if any
         $form.off('submit').submit(function(event){
             event.preventDefault();
+
             var data = $(this).serialize();
             var url = $form.attr('action');
+            var type = $form.attr('method');
 
             $.ajax({
-                type : "POST",
+                type : type ? type : 'GET',
                 url:  url ? url : '',
                 data : data,
                 success : function(response){
