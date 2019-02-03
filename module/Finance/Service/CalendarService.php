@@ -5,6 +5,7 @@ namespace Finance\Service;
 use Finance\Storage\MySQL\CalendarMapper;
 use Krystal\Application\Model\AbstractService;
 use Krystal\Stdlib\VirtualEntity;
+use Krystal\Stdlib\ArrayUtils;
 use Krystal\Date\TimeHelper;
 
 final class CalendarService extends AbstractService
@@ -41,6 +42,32 @@ final class CalendarService extends AbstractService
                ->setAmount($row['amount']);
 
         return $entity;
+    }
+
+    /**
+     * Creates pivot data
+     * 
+     * @return array
+     */
+    public function getPivotData() : array
+    {
+        $output = [];
+
+        $rows = $this->calendarMapper->fetchAll(null);
+        $partition = ArrayUtils::arrayPartition($rows, 'date', false);
+
+        foreach ($partition as $date => $details) {
+            $amounts = array_column($details, 'amount');
+            $sum = array_sum($amounts);
+
+            $output[] = [
+                'date' => $date,
+                'sum' => $sum,
+                'details' => $details
+            ];
+        }
+
+        return $output;
     }
 
     /**
