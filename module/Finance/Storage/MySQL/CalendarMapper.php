@@ -23,6 +23,26 @@ final class CalendarMapper extends AbstractMapper
     }
 
     /**
+     * Counts total amount by specific date
+     * 
+     * @param string $date Optional date constraint
+     * @return float
+     */
+    public function getSum($date) : float
+    {
+        $db = $this->db->select()
+                       ->sum('amount')
+                       ->from(self::getTableName());
+
+        // Apply if required
+        if ($date !== null) {
+            $db->whereEquals('date', $date);
+        }
+
+        return (float) $db->queryScalar();
+    }
+
+    /**
      * Returns all calendar entries
      * 
      * @param string $date Optional date constraint

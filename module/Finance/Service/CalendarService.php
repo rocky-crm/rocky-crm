@@ -44,6 +44,19 @@ final class CalendarService extends AbstractService
     }
 
     /**
+     * Counts total amount by specific date
+     * 
+     * @param string $date Optional date constraint
+     * @return float
+     */
+    public function getSum($date = null)
+    {
+        $sum = $this->calendarMapper->getSum($date);
+
+        return number_format($sum);
+    }
+
+    /**
      * Fetch finance calendar
      * 
      * @param string $date Optional date constraint. Defaults to today
