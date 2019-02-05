@@ -21,3 +21,8 @@ CREATE TABLE rocky_income (
     `amount` FLOAT NOT NULL,
     `comment` TEXT NOT NULL
 );
+
+CREATE TABLE rocky_currency (
+    `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `code` varchar(10) NOT NULL COMMENT 'Currency code'
+);
