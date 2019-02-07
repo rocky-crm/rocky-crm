@@ -5,6 +5,7 @@ namespace Finance\Service;
 use Finance\Storage\MySQL\CurrencyMapper;
 use Krystal\Application\Model\AbstractService;
 use Krystal\Stdlib\VirtualEntity;
+use Krystal\Stdlib\ArrayUtils;
 
 final class CurrencyService extends AbstractService
 {
@@ -36,6 +37,16 @@ final class CurrencyService extends AbstractService
                ->setCode($row['code']);
 
         return $entity;
+    }
+
+    /**
+     * Fetch records as a list
+     * 
+     * @return array
+     */
+    public function fetchList() : array
+    {
+        return ArrayUtils::arrayList($this->currencyMapper->fetchAll(), 'id', 'code');
     }
 
     /**
