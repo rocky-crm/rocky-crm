@@ -1,6 +1,23 @@
 <?php
 
 return [
+    // Currency
+    '/finance/currency' => [
+        'controller' => 'Currency@indexAction'
+    ],
+
+    '/finance/currency/save' => [
+        'controller' => 'Currency@saveAction'
+    ],
+
+    '/finance/currency/edit/(:var)' => [
+        'controller' => 'Currency@editAction'
+    ],
+
+    '/finance/currency/delete/(:var)' => [
+        'controller' => 'Currency@deleteAction'
+    ],
+
     // Spendings
     '/finance/spending' => [
         'controller' => 'Spending@indexAction'
