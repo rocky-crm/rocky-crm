@@ -12,8 +12,12 @@ defined('KRYSTAL') or die;
 
 <form action="<?= $this->url('Finance:Calendar@exploreAction', null); ?>">
     <div class="row">
-        <div class="col-lg-5">
+        <div class="col-lg-3">
             <?= Element::date('date', $date, ['class' => 'form-control']); ?>
+        </div>
+
+        <div class="col-lg-2">
+            <?= Element::select('currency_id', $currencies, $currencyId, ['class' => 'form-control']); ?>
         </div>
 
         <div class="col-lg-2">

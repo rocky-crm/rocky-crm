@@ -36,7 +36,7 @@ return [
     ],
 
     // Calendar
-    '/finance/pivot' => [
+    '/finance/pivot/(:var)' => [
         'controller' => 'Calendar@pivotAction'
     ],
     

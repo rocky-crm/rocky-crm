@@ -15,8 +15,12 @@ final class Calendar extends AbstractCrmController
      */
     public function pivotAction() : string
     {
+        $currencyId = $this->request->getQuery('currency_id', 1);
+
         return $this->view->render('pivot', [
-            'data' => $this->getModuleService('calendarService')->getPivotData()
+            'data' => $this->getModuleService('calendarService')->getPivotData($currencyId),
+            'currencies' => $this->getModuleService('currencyService')->fetchList(),
+            'currencyId' => $currencyId
         ]);
     }
 
@@ -24,22 +28,27 @@ final class Calendar extends AbstractCrmController
      * Renders all items
      * 
      * @param string $date
+     * @param mixed $currencyId Optional currency ID constraint
      * @return string
      */
-    public function indexAction($date = null) : string
+    public function indexAction($date = null, $currencyId = null) : string
     {
         if ($date === null) {
             $date = TimeHelper::getNow(false);
         }
 
+        if ($currencyId === null) {
+            $currencyId = 1;
+        }
+
         $entity = new VirtualEntity;
         $entity->setDate($date);
 
-        return $this->createGrid($entity, $date);
+        return $this->createGrid($entity, $date, $currencyId);
     }
 
     /**
-     * Explore by date
+     * Explore by date and currency
      * 
      * @param string $date
      * @return string
@@ -47,8 +56,9 @@ final class Calendar extends AbstractCrmController
     public function exploreAction() : string
     {
         $date = $this->request->getQuery('date');
+        $currencyId = $this->request->getQuery('currency_id');
 
-        return $this->indexAction($date);
+        return $this->indexAction($date, $currencyId);
     }
 
     /**
@@ -56,15 +66,19 @@ final class Calendar extends AbstractCrmController
      * 
      * @param \Krystal\Stdlib\VirtualEntity $entity
      * @param mixed $date Optional date override. Defaults to today
+     * @param mixed $currencyId Optional currency ID constraint
      * @return string
      */
-    private function createGrid(VirtualEntity $entity, $date = null) : string
+    private function createGrid(VirtualEntity $entity, $date = null, $currencyId = null) : string
     {
         return $this->view->render('calendar', [
+            // Request parameters
             'date' => $date,
-            'calendar' => $this->getModuleService('calendarService')->fetchAll($date),
+            'currencyId' => $currencyId,
+
+            'calendar' => $this->getModuleService('calendarService')->fetchAll($currencyId, $date),
             'currencies' => $this->getModuleService('currencyService')->fetchList(),
-            'sum' => $this->getModuleService('calendarService')->getSum($date),
+            'sum' => $this->getModuleService('calendarService')->getSum($currencyId, $date),
             'spendings' => $this->getModuleService('spendingService')->fetchList(),
             'entity' => $entity
         ]);
