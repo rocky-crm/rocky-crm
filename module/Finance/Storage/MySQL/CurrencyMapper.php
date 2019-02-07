@@ -21,4 +21,19 @@ final class CurrencyMapper extends AbstractMapper
     {
         return 'id';
     }
+
+    /**
+     * Fetch all currencies
+     * 
+     * @return array
+     */
+    public function fetchAll() : array
+    {
+        $db = $this->db->select('*')
+                       ->from(self::getTableName())
+                       ->orderBy($this->getPk())
+                       ->desc();
+
+        return $db->queryAll();
+    }
 }
