@@ -64,6 +64,7 @@ final class CalendarService extends AbstractService
         // Counters
         $total = 0;
         $spendings = 0;
+        $currency = null;
 
         foreach ($partition as $date => $details) {
             $amounts = array_column($details, 'amount');
@@ -78,9 +79,13 @@ final class CalendarService extends AbstractService
                 'sum' => $sum,
                 'details' => $details
             ];
+
+            // Generate currency
+            $currency = array_unique(array_column($details, 'currency'))[0];
         }
 
         return [
+            'currency' => $currency,
             'total' => $total,
             'spendings' => $spendings,
             'data' => $output
