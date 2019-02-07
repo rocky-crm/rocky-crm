@@ -41,6 +41,10 @@ final class CalendarService extends AbstractService
                ->setName($row['name'])
                ->setAmount($row['amount']);
 
+        if (isset($row['currency'])) {
+            $entity->setCurrency($row['currency']);
+        }
+
         return $entity;
     }
 

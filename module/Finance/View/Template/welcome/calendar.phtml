@@ -50,7 +50,7 @@ defined('KRYSTAL') or die;
                 [
                     'column' => 'amount',
                     'value' => function($row){
-                        return number_format($row['amount']);
+                        return number_format($row['amount']) . PHP_EOL . $row['currency'];
                     }
                 ]
             ],
@@ -91,6 +91,11 @@ defined('KRYSTAL') or die;
             <div class="form-group">
                 <label class="control-label"><?php $this->show('Spending category'); ?></label>
                 <?= Element::select('spending_id', $spendings, $entity['spending_id'], ['class' => 'form-control']); ?>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label"><?php $this->show('Currency'); ?></label>
+                <?= Element::select('currency_id', $currencies, $entity['currency_id'], ['class' => 'form-control']); ?>
             </div>
 
             <div class="form-group">

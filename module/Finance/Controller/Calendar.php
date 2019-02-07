@@ -63,6 +63,7 @@ final class Calendar extends AbstractCrmController
         return $this->view->render('calendar', [
             'date' => $date,
             'calendar' => $this->getModuleService('calendarService')->fetchAll($date),
+            'currencies' => $this->getModuleService('currencyService')->fetchList(),
             'sum' => $this->getModuleService('calendarService')->getSum($date),
             'spendings' => $this->getModuleService('spendingService')->fetchList(),
             'entity' => $entity
