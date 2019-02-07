@@ -25,18 +25,20 @@ final class CalendarMapper extends AbstractMapper
     /**
      * Counts total amount by specific date
      * 
+     * @param int $currencyId Attached currency id
      * @param string $date Optional date constraint
      * @return float
      */
-    public function getSum($date) : float
+    public function getSum(int $currencyId, $date) : float
     {
         $db = $this->db->select()
                        ->sum('amount')
-                       ->from(self::getTableName());
+                       ->from(self::getTableName())
+                       ->whereEquals('currency_id', $currencyId);
 
         // Apply if required
         if ($date !== null) {
-            $db->whereEquals('date', $date);
+            $db->andWhereEquals('date', $date);
         }
 
         return (float) $db->queryScalar();
@@ -45,10 +47,11 @@ final class CalendarMapper extends AbstractMapper
     /**
      * Returns all calendar entries
      * 
+     * @param int $currencyId Attached currency id
      * @param string $date Optional date constraint
      * @return array
      */
-    public function fetchAll($date) : array
+    public function fetchAll(int $currencyId, $date) : array
     {
         // Columns to be selected
         $columns = [
@@ -70,11 +73,13 @@ final class CalendarMapper extends AbstractMapper
                        // Currency relation
                        ->leftJoin(CurrencyMapper::getTableName(), [
                             CurrencyMapper::column('id') => self::getRawColumn('currency_id')
-                       ]);
+                       ])
+                       // Currency ID constraint
+                       ->whereEquals(self::column('currency_id'), $currencyId);
 
         // Apply if required
         if ($date !== null) {
-            $db->whereEquals(self::column('date'), $date);
+            $db->andWhereEquals(self::column('date'), $date);
         }
 
         $db->orderBy($this->getPk())

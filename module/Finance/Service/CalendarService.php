@@ -51,13 +51,14 @@ final class CalendarService extends AbstractService
     /**
      * Creates pivot data
      * 
+     * @param int $currencyId Attached currency id
      * @return array
      */
-    public function getPivotData() : array
+    public function getPivotData(int $currencyId) : array
     {
         $output = [];
 
-        $rows = $this->calendarMapper->fetchAll(null);
+        $rows = $this->calendarMapper->fetchAll($currencyId, null);
         $partition = ArrayUtils::arrayPartition($rows, 'date', false);
 
         // Counters
@@ -89,12 +90,13 @@ final class CalendarService extends AbstractService
     /**
      * Counts total amount by specific date
      * 
+     * @param int $currencyId Attached currency id
      * @param string $date Optional date constraint
      * @return float
      */
-    public function getSum($date = null)
+    public function getSum(int $currencyId, $date = null)
     {
-        $sum = $this->calendarMapper->getSum($date);
+        $sum = $this->calendarMapper->getSum($currencyId, $date);
 
         return number_format($sum);
     }
@@ -102,16 +104,17 @@ final class CalendarService extends AbstractService
     /**
      * Fetch finance calendar
      * 
+     * @param int $currencyId Attached currency id
      * @param string $date Optional date constraint. Defaults to today
      * @return array
      */
-    public function fetchAll($date = null) : array
+    public function fetchAll(int $currencyId, $date = null) : array
     {
         if ($date === null) {
             $date = TimeHelper::getNow(false);
         }
 
-        return $this->prepareResults($this->calendarMapper->fetchAll($date));
+        return $this->prepareResults($this->calendarMapper->fetchAll($currencyId, $date));
     }
 
     /**
