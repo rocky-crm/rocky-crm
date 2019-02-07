@@ -95,7 +95,7 @@ final class Calendar extends AbstractCrmController
         $entity = $this->getModuleService('calendarService')->fetchById($id);
 
         if ($entity) {
-            return $this->createGrid($entity);
+            return $this->createGrid($entity, null, $entity->getCurrencyId());
         } else {
             return false;
         }

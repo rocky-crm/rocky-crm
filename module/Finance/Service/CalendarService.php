@@ -37,6 +37,7 @@ final class CalendarService extends AbstractService
         $entity->setId($row['id'])
                ->setSpendingId($row['spending_id'])
                ->setSpending($row['spending'] ?? null)
+               ->setCurrencyId($row['currency_id'] ?? null)
                ->setDate($row['date'])
                ->setName($row['name'])
                ->setAmount($row['amount']);
