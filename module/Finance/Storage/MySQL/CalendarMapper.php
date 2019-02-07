@@ -58,6 +58,7 @@ final class CalendarMapper extends AbstractMapper
             self::column('date'),
             self::column('name'),
             self::column('amount'),
+            CurrencyMapper::column('code') => 'currency'
         ];
 
         $db = $this->db->select($columns)
@@ -65,6 +66,10 @@ final class CalendarMapper extends AbstractMapper
                        // Spending relation
                        ->leftJoin(SpendingMapper::getTableName(), [
                             SpendingMapper::column('id') => self::getRawColumn('spending_id')
+                       ])
+                       // Currency relation
+                       ->leftJoin(CurrencyMapper::getTableName(), [
+                            CurrencyMapper::column('id') => self::getRawColumn('currency_id')
                        ]);
 
         // Apply if required

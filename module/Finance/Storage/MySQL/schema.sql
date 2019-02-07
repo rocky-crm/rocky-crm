@@ -7,6 +7,7 @@ CREATE TABLE rocky_spending (
 CREATE TABLE rocky_calendar (
     `id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `spending_id` INT DEFAULT NULL COMMENT 'Related spending ID',
+    `currency_id` INT NOT NULL COMMENT 'Related currency ID',
     `date` DATE NOT NULL COMMENT 'Date of this payment',
     `name` varchar(255) NOT NULL,
     `amount` FLOAT NOT NULL,
