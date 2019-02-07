@@ -11,7 +11,7 @@ final class CurrencyMapper extends AbstractMapper
      */
     public static function getTableName() : string
     {
-        return 'rocky_currency';
+        return 'rocky_finance_currency';
     }
 
     /**

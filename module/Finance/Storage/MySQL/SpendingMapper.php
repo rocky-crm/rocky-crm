@@ -11,7 +11,7 @@ final class SpendingMapper extends AbstractMapper
      */
     public static function getTableName() : string
     {
-        return 'rocky_spending';
+        return 'rocky_finance_spending';
     }
 
     /**

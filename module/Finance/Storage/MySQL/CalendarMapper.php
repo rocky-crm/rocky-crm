@@ -11,7 +11,7 @@ final class CalendarMapper extends AbstractMapper
      */
     public static function getTableName() : string
     {
-        return 'rocky_calendar';
+        return 'rocky_finance_calendar';
     }
 
     /**

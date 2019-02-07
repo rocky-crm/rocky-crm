@@ -11,7 +11,7 @@ final class IncomeMapper extends AbstractMapper
      */
     public static function getTableName() : string
     {
-        return 'rocky_income';
+        return 'rocky_finance_income';
     }
 
     /**
